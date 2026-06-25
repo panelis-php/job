@@ -1,6 +1,7 @@
 {
   "name": "panelis-php/job",
   "description": "Monitor and manage queued jobs stored in the database",
+  "license": "MIT",
   "keywords": [
     "panelis"
   ],
