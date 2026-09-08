@@ -91,6 +91,8 @@ class FailedJobResource extends Resource
                     ->action(function (FailedJob $record): void {
                         Artisan::call('queue:retry', ['id' => $record->id]);
 
+                        audit('job')->event('retry_failed_job')->log('job::activity.retry_failed_job');
+
                         Notification::make()
                             ->success()
                             ->title(__('job::job.pushed_to_queue'))
@@ -111,6 +113,8 @@ class FailedJobResource extends Resource
                     ->icon(Heroicon::OutlinedArrowPath)
                     ->action(function (Collection $records): void {
                         Artisan::call('queue:retry', ['id' => $records->pluck('id')->toArray()]);
+
+                        audit('job')->event('retry_failed_jobs')->log('job::activity.retry_failed_jobs');
 
                         Notification::make()
                             ->success()
